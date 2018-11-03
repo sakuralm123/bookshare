@@ -29,7 +29,7 @@
     </bean>
     <!-- 配置mapper -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="classpath:com.lm.mapper"></property>
+        <property name="basePackage" value="classpath:com.bookshare.mapper"></property>
 
     </bean>
 
