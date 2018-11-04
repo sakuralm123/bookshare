@@ -1,11 +1,10 @@
 package com.bookshare.mapper;
 
 import com.bookshare.pojo.Book;
-import org.springframework.stereotype.Service;
+import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.stereotype.Repository;
 
-import java.util.Map;
-
-@Service
+@Repository("bookMapper")
 public interface BookMapper {
     Book bookInfo(String bid);
 }

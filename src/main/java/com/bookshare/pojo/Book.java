@@ -75,7 +75,16 @@ public class Book {
         this.buid = buid;
     }
 
-
-
-
+    @Override
+    public String toString() {
+        return "Book{" +
+                "bid='" + bid + '\'' +
+                ", bpict='" + bpict + '\'' +
+                ", bname='" + bname + '\'' +
+                ", bdesc='" + bdesc + '\'' +
+                ", bcate='" + bcate + '\'' +
+                ", bprice='" + bprice + '\'' +
+                ", buid='" + buid + '\'' +
+                '}';
+    }
 }

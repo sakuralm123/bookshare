@@ -1,5 +1,6 @@
 package com.bookshare.controller;
 
+import com.bookshare.mapper.BookMapper;
 import com.bookshare.pojo.Book;
 import com.bookshare.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,15 +15,17 @@ import javax.servlet.http.HttpServletResponse;
 public class BookController {
     @Autowired
     private BookService bookService;
+
     /**
      * 获得图书的信息
      */
     @RequestMapping("/bookinfo")
     public String bookInfo(Model model, HttpServletResponse response, HttpServletRequest request){
         String bid=request.getParameter("bid");
+        System.out.println(bid);
         Book book = bookService.bookInfo(bid);
+        System.out.println(book);
         model.addAttribute("bookinfo",book);
-
         return "bookinfo";
 
     }

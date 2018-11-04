@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bookshare.mapper.BookMapper">
     <!--查找单个图书信息-->
-    <select id="bookInfo" parameterType="String" resultType="Book">
+    <select id="bookInfo" parameterType="String" resultType="com.bookshare.pojo.Book">
         SELECT * from book where bid=#{bid}
     </select>
 </mapper>
