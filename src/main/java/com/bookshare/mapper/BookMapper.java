@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository("bookMapper")
 public interface BookMapper {
     Book bookInfo(String bid);
+    int uploadBook(Book book);
 }

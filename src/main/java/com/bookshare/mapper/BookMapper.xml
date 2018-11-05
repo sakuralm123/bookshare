@@ -7,4 +7,10 @@
     <select id="bookInfo" parameterType="String" resultType="com.bookshare.pojo.Book">
         SELECT * from book where bid=#{bid}
     </select>
+
+    <!--上传图书-->
+   <insert id="uploadBook" parameterType="Book">
+       INSERT INTO book(bid,bname,bpict,bdesc,bcate,bprice,buid)
+       VALUES (#{bid},#{bname},#{bpict},#{bdesc},#{bcate},#{bprice},#{buid})
+   </insert>
 </mapper>

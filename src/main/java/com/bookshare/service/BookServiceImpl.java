@@ -16,4 +16,9 @@ public class BookServiceImpl implements BookService {
     public Book bookInfo(String bid) {
         return bookMapper.bookInfo(bid);
     }
+
+    @Override
+    public int uploadBook(Book book) {
+        return bookMapper.uploadBook(book);
+    }
 }

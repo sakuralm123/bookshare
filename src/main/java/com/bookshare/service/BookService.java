@@ -7,4 +7,5 @@ import org.springframework.stereotype.Service;
 @Service
 public interface BookService {
     Book bookInfo(String bid);
+    int  uploadBook(Book book);
 }

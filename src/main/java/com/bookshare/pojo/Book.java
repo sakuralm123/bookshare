@@ -11,7 +11,7 @@ package com.bookshare.pojo;
 
 * */
 
-public class Book {
+public class Book implements PackageObject{
     private String bid;
     private String bpict;
     private String bname;
@@ -86,5 +86,21 @@ public class Book {
                 ", bprice='" + bprice + '\'' +
                 ", buid='" + buid + '\'' +
                 '}';
+    }
+
+    @Override
+    public void packageObject(String name, String value) {
+        if(name!=null&&name!=""){
+            if(name.equals("bname")){
+                this.setBname(value);
+            }else if (name.equals("bdesc")){
+                this.setBdesc(value);
+            }else if (name.equals("bcate")){
+                this.setBcate(value);
+            }else if (name.equals("bprice")){
+                this.setBprice(value);
+            }
+        }
+
     }
 }
