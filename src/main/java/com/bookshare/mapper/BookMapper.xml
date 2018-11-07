@@ -13,4 +13,21 @@
        INSERT INTO book(bid,bname,bpict,bdesc,bcate,bprice,buid)
        VALUES (#{bid},#{bname},#{bpict},#{bdesc},#{bcate},#{bprice},#{buid})
    </insert>
+
+    <!--模糊查询图书-->
+    <select id="fuzzysearch" parameterType="String" resultType="Book">
+        SELECT * FROM book WHERE bname LIKE '%${bname}%'
+    </select>
+
+    <!--根据分类查询图书-->
+    <select id="categorysearch" parameterType="String" resultType="Book">
+        SELECT  * FROM  book where bcate=#{bcate}
+    </select>
+    <!--查看用户所有上传的图书-->
+    <select id="allUpload" parameterType="String" resultType="Book">
+
+        SELECT * from book WHERE buid=#{buid}
+    </select>
+
+
 </mapper>

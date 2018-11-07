@@ -5,6 +5,8 @@ import com.bookshare.pojo.Book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Service
 public class BookServiceImpl implements BookService {
@@ -21,4 +23,20 @@ public class BookServiceImpl implements BookService {
     public int uploadBook(Book book) {
         return bookMapper.uploadBook(book);
     }
+    @Override
+    public List<Book> fuzzysearch(String bname){
+        return bookMapper.fuzzysearch(bname);
+    }
+
+    @Override
+    public List<Book> categorysearch(String bcate) {
+        return bookMapper.categorysearch(bcate);
+    }
+
+    @Override
+    public List<Book> allUpload(String buid) {
+        return bookMapper.allUpload(buid);
+    }
+
+
 }

@@ -19,7 +19,9 @@ public class User implements PackageObject{
     private String uage;
     private String usex;
     private String uvavat;
-    private String ucolle;
+    private String upass;
+
+
 
     public String getUpass() {
         return upass;
@@ -29,7 +31,6 @@ public class User implements PackageObject{
         this.upass = upass;
     }
 
-    private String upass;
 
     public String getUid() {
         return uid;
@@ -79,13 +80,6 @@ public class User implements PackageObject{
         this.uvavat = uvavat;
     }
 
-    public String getUcolle() {
-        return ucolle;
-    }
-
-    public void setUcolle(String ucolle) {
-        this.ucolle = ucolle;
-    }
 
     @Override
     public String toString() {
@@ -96,7 +90,7 @@ public class User implements PackageObject{
                 ", uage='" + uage + '\'' +
                 ", usex='" + usex + '\'' +
                 ", uvavat='" + uvavat + '\'' +
-                ", ucolle='" + ucolle + '\'' +
+
                 '}';
     }
 
@@ -109,12 +103,13 @@ public class User implements PackageObject{
                 this.setUage(value);
             }else if (name.equals("usex")){
                 this.setUsex(value);
-            }else if (name.equals("uvavat")){
-                this.setUvavat(value);
+            }
             }else if (name.equals("uconn")){
                 this.setUconn(value);
+            }else if(name.equals("upass")){
+                this.setUpass(value);
             }
         }
 
     }
-}
+

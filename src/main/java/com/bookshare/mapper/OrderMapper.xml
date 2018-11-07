@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bookshare.mapper.OrderMapper">
+    <!--历史订单-->
+    <select id="oldOrder" parameterType="String" resultType="Order">
+        SELECT * FROM orders WHERE ouid=#{ouid} AND ostate='1'
+    </select>
+    <!--正在进行的订单-->
+    <select id="newOrder" parameterType="String" resultType="Order">
+        SELECT * FROM orders WHERE ouid=#{ouid} AND ostate='0'
+    </select>
+</mapper>

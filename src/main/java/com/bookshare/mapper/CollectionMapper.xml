@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bookshare.mapper.CollectionMapper">
+    <!--查询持有者所有的图书的id-->
+    <select id="allbids" parameterType="String" resultType="String">
+        SELECT cbid FROM collection WHERE cuid=#{buid}
+    </select>
+
+    <!--根据所有的图书id找到图书-->
+    <select id="allBooks" resultType="Book">
+        SELECT * FROM book
+        WHERE  bid IN
+        <foreach collection="bids" item="bid" index="index"
+                 open="(" close=")" separator=",">
+            #{bid}
+        </foreach>
+    </select>
+
+    <!--添加收藏-->
+    <insert id="collection" parameterType="Collection">
+        INSERT INTO collection (cid,cbid,cuid)
+        VALUES (#{cid},#{cbid},#{cuid})
+
+    </insert>
+
+    <!--移除收藏-->
+    <delete id="delectCollection" parameterType="String">
+        delect from collection WHERE cid=#{cid}
+    </delete>
+
+</mapper>
