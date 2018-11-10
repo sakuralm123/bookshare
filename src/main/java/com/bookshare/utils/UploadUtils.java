@@ -17,7 +17,7 @@ public class UploadUtils {
     public static String uploadForm(String path, PackageObject object, HttpServletRequest request) {
         String newPath = null;
         //String savePath = request.getSession().getServletContext().getRealPath("/") + "WEB-INF/upload/"+path;
-        String savePath = "C:/workspaces/bookshare/src/main/webapp/" + "WEB-INF/uploadpic/" + path;
+        String savePath = "C:/workspaces/bookshare/src/main/webapp/" + path;
         System.out.println(savePath);
         File targetFile = new File(savePath);
         //判断文件是否存在
@@ -35,7 +35,6 @@ public class UploadUtils {
         upload.setHeaderEncoding("UTF-8");
 
         try {
-
             //4.使用ServletFileUpload解析器上传数据，解析结果是List<FileItem>集合，每个FileItem代表表单的一栏
             List<FileItem> list = upload.parseRequest(request);
             for (FileItem item : list) {

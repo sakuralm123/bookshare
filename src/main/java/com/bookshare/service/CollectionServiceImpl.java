@@ -2,11 +2,13 @@ package com.bookshare.service;
 
 import com.bookshare.mapper.CollectionMapper;
 import com.bookshare.pojo.Book;
-import com.bookshare.pojo.Collection;
+import com.bookshare.pojo.CollectionInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class CollectionServiceImpl implements CollectionService{
     @Autowired
     private CollectionMapper collectionMapper;
@@ -24,7 +26,7 @@ public class CollectionServiceImpl implements CollectionService{
     添加收藏功能
      */
     @Override
-    public int collection(Collection collection) {
+    public int collection(CollectionInfo collection) {
         return collectionMapper.collection(collection);
     }
 

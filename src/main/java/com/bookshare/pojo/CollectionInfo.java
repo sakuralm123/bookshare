@@ -1,6 +1,6 @@
 package com.bookshare.pojo;
 
-public class Collection {
+public class CollectionInfo {
     /*
      cid VARCHAR(50) NOT NULL COMMENT '收藏表的主键',
  cuid VARCHAR(50)NOT NULL COMMENT '收藏者',

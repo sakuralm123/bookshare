@@ -1,7 +1,7 @@
 package com.bookshare.controller;
 
 import com.bookshare.pojo.Book;
-import com.bookshare.pojo.Collection;
+import com.bookshare.pojo.CollectionInfo;
 import com.bookshare.service.CollectionService;
 import com.bookshare.utils.UUIDUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +37,7 @@ public class CollectionController {
      */
     @RequestMapping("/collection")
     public String collection(Model model,HttpServletRequest request){
-        Collection collection=new Collection();
+        CollectionInfo collection=new CollectionInfo();
        String cuid= (String) request.getSession().getAttribute("uid");
        String cbid=request.getParameter("cbid");
        collection.setCbid(cbid);

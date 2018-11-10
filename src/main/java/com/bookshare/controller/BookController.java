@@ -5,6 +5,9 @@ import com.bookshare.pojo.Book;
 import com.bookshare.service.BookService;
 import com.bookshare.utils.UUIDUtils;
 import com.bookshare.utils.UploadUtils;
+import com.github.miemiedev.mybatis.paginator.domain.Order;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,8 +43,10 @@ public class BookController {
     public String uploadBook(Model model, HttpServletRequest request, HttpServletResponse response) {
         Book book = new Book();
         String newPath = UploadUtils.uploadForm("book", book, request);
+        //把存入数据库中的路径改变
+        String[] strings=newPath.split("/");
+        newPath="/book/"+strings[strings.length-1];
         book.setBpict(newPath);
-        //是否可行，存疑。
         String uid = (String) request.getSession().getAttribute("uid");
         book.setBuid(uid);
         book.setBid(UUIDUtils.getUUID());
@@ -80,9 +85,28 @@ public class BookController {
      */
     @RequestMapping("/categorysearch")
     public String categorysearch(Model model,HttpServletRequest request ){
+        /*String pageNum = request.getParameter("pagenum");
+        String pageSize = request.getParameter("pagesize");
+        int beginnum = 1;
+        int beginsize = 3;
+        if(pageNum != null && !"".equals(pageNum)){
+            beginnum = Integer.parseInt(pageNum);
+        }
+        if(pageSize != null && !"".equals(pageSize)){
+            beginsize  = Integer.parseInt(pageSize);
+        }
+        String sortString = "id.desc";
+        Order.formString(sortString);
+        PageHelper.startPage(beginnum, beginsize);*/
+
         String bcate=request.getParameter("bcate");
         List<Book> books=bookService.categorysearch(bcate);
+        System.out.println(books);
+        int total=books.size();
+        //PageInfo<Book> pagehelper = new PageInfo<Book>(books);
         model.addAttribute("books",books);
+        model.addAttribute("total",total);
+
         return "booklist";
     }
 
@@ -96,5 +120,12 @@ public class BookController {
         model.addAttribute("bookList",bookList);
         return "allupload";
     }
+
+    /*@RequestMapping("/reques")
+    public String paging(Model model,HttpServletRequest request){
+
+    }
+*/
+
 
 }
