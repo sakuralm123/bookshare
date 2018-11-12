@@ -28,6 +28,10 @@
 
         SELECT * from book WHERE buid=#{buid}
     </select>
+    <!--查看所有的条数-->
+    <select id="allCount" parameterType="String" resultType="int">
+        SELECT  count(*) FROM book WHERE bcate=#{bcate}
+    </select>
 
 
 </mapper>

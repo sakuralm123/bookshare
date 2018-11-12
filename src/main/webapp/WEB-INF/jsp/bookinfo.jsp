@@ -11,6 +11,6 @@
     <title>Title</title>
 </head>
 <body>
-<h1>${bookinfo.bpict}</h1>
+${books}
 </body>
 </html>

@@ -38,5 +38,10 @@ public class BookServiceImpl implements BookService {
         return bookMapper.allUpload(buid);
     }
 
+    @Override
+    public int allCount(String bcate) {
+        return bookMapper.allCount(bcate);
+    }
+
 
 }

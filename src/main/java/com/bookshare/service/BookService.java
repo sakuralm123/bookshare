@@ -13,5 +13,6 @@ public interface BookService {
     List<Book> fuzzysearch(String bname);
     List<Book> categorysearch(String bcate);
     List<Book> allUpload(String buid);
+    int allCount(String bcate);
 
 }

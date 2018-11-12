@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<!DOCTYPE>
 <html>
 
 <head>
@@ -14,9 +15,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Welcome to BookShare!</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="/layui/css/layui.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="../layui/css/layui.css" />
     <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js"></script>
-    <script src="/layui/layui.js"></script>
+    <script src="../layui/layui.js"></script>
 </head>
 
 <body class="layui-bg-black">
@@ -88,7 +89,7 @@
                                 <td>
                                     <div class="layui-row">
                                         <div class="layui-col-md-offset2">
-                                            <a href="${pageContext.request.contextPath }/bookinfo?bid=${book.bid}">
+                                            <a href="http://www.baidu.com">
                                                 <img height="130px" width="100px" src="${book.bpict}">
                                             </a>
                                         </div>
@@ -100,7 +101,6 @@
                                 <td>炫酷狗者</td>
                                 <td>${book.bdesc}</td>
                             </tr>
-
                         </c:forEach>
 
                         </tbody>
@@ -115,6 +115,12 @@
 
 
 <script>
+    var pcountString= "${pcount}";
+    var psizeString= "${psize}";
+    //var pcountInt= parseInt(pcountString);//总页数
+    //var psizeInt=parseInt(psizeString); //页面大小
+    var pindex = "${pindex}";// 当前页
+    //var ptotalpages=Math.ceil(pcountInt/psizeInt);// 总记录数
 
 
     layui.use(['element', 'form', 'laypage'], function () {
@@ -128,36 +134,49 @@
         });
 
         var laypage = layui.laypage;
+       // var pcount = pcountInt;// 总记录数
+        //var psize = psizeInt;// 每一页的记录数
 
         //执行一个laypage实例
         laypage.render({
-            elem: 'test1' //注意，这里的 test1 是 ID，不用加 # 号
-            , count: ${total} //数据总数，从服务端得到
+             cont:4
+            ,elem: 'test1' //注意，这里的 test1 是 ID，不用加 # 号
+            , count: ${total}//数据总数，从服务端得到
+            ,limit:4
+            ,curr:pindex
             , jump: function (obj, first) {
                 //obj包含了当前分页的所有参数，比如：
                 console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
-                console.log(obj.limit); //得到每页显示的条数
+                console.log(obj.limit);//得到每页显示的条数
+                //alert("aaa");
 
                 //首次不执行
                 if (!first) {
-                     do something
-                     $.ajax({
-                        type: "post",
-                        url: "bookList",
+                    /* $.ajax({
+                        type: "get",
+                        url: "http://localhost:8080/pagecut",
                        async: false,
-                        dataType: 'json',
+                       dataType: 'json',
                          data: {
-                            "page": 2,
-                             "size": 2
+                             "page": obj.curr,
+                             "size": obj.limit,
+                             "bcate":"${bcate}"
                          },
-                        success: showList
-                     });
+                         success:function (data) {
+                            alert(data);
+
+                         }
+                     });*/
+                    window.location.href="http://localhost:8080/categorysearch?page="+obj.curr+"&size="+obj.limit+"&bcate="+"${bcate}";//跳转链接
                 }
             }
         });
 
     });
+function showList() {
 
+
+}
 </script>
 </body>
 

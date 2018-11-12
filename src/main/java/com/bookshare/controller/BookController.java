@@ -1,6 +1,5 @@
 package com.bookshare.controller;
 
-import com.bookshare.mapper.BookMapper;
 import com.bookshare.pojo.Book;
 import com.bookshare.service.BookService;
 import com.bookshare.utils.UUIDUtils;
@@ -12,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -33,7 +33,6 @@ public class BookController {
         System.out.println(book);
         model.addAttribute("bookinfo", book);
         return "bookinfo";
-
     }
 
     /**
@@ -73,22 +72,24 @@ public class BookController {
         String bname=request.getParameter("bname");
         List<Book> books=bookService.fuzzysearch(bname);
         model.addAttribute("books",books);
-
         return "booklist";
     }
 
     /**
      * 按分类查询图书
-     * @param model
+     * @param
      * @param request
      * @return
      */
     @RequestMapping("/categorysearch")
-    public String categorysearch(Model model,HttpServletRequest request ){
-        /*String pageNum = request.getParameter("pagenum");
-        String pageSize = request.getParameter("pagesize");
+    public String categorysearch(Model model, HttpServletRequest request ){
+        String bcate=request.getParameter("bcate");
+        System.out.println(bcate);
+
+        String pageNum = request.getParameter("page");
+        String pageSize = request.getParameter("size");
         int beginnum = 1;
-        int beginsize = 3;
+        int beginsize = 4;
         if(pageNum != null && !"".equals(pageNum)){
             beginnum = Integer.parseInt(pageNum);
         }
@@ -97,18 +98,50 @@ public class BookController {
         }
         String sortString = "id.desc";
         Order.formString(sortString);
-        PageHelper.startPage(beginnum, beginsize);*/
-
-        String bcate=request.getParameter("bcate");
+        PageHelper.startPage(beginnum, beginsize);
         List<Book> books=bookService.categorysearch(bcate);
-        System.out.println(books);
-        int total=books.size();
-        //PageInfo<Book> pagehelper = new PageInfo<Book>(books);
-        model.addAttribute("books",books);
-        model.addAttribute("total",total);
-
+        //System.out.println(books);
+        PageInfo<Book> pagehelper = new PageInfo<Book>(books);
+        //System.out.println(books.size());
+        model.addAttribute("bcate",bcate);
+        model.addAttribute("books",pagehelper.getList());
+        System.out.println(pagehelper.getList());
+        model.addAttribute("total",pagehelper.getTotal());
+        model.addAttribute("pindex",beginnum);
         return "booklist";
     }
+
+    @RequestMapping("/pagecut")
+    @ResponseBody
+    public int pageCut(HttpServletRequest request ){
+        String bcate=request.getParameter("bcate");
+        System.out.println(bcate);
+        String pageNum = request.getParameter("page");
+
+        String pageSize = request.getParameter("size");
+        int beginnum=1;
+        int beginsize=4;
+        if(pageNum != null && !"".equals(pageNum)){
+            beginnum = Integer.parseInt(pageNum);
+        }
+        if(pageSize != null && !"".equals(pageSize)){
+            beginsize  = Integer.parseInt(pageSize);
+        }
+        String sortString = "id.desc";
+        Order.formString(sortString);
+        PageHelper.startPage(beginnum, beginsize);
+        List<Book> books=bookService.categorysearch(bcate);
+        System.out.println(books);
+        PageInfo<Book> pagehelper = new PageInfo<Book>(books);
+        //System.out.println(books.size());
+       // model.addAttribute("bcate",bcate);
+        //model.addAttribute("books",pagehelper.getList());
+       // System.out.println(pagehelper.getList());
+        //model.addAttribute("total",pagehelper.getTotal());
+        return 1;
+    }
+
+
 
     /**
      * 查看用户所有上传的图书
