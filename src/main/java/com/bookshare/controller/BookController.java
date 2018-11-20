@@ -31,7 +31,7 @@ public class BookController {
         String bid = request.getParameter("bid");
         Book book = bookService.bookInfo(bid);
         System.out.println(book);
-        model.addAttribute("bookinfo", book);
+        model.addAttribute("book", book);
         return "bookinfo";
     }
 
@@ -70,9 +70,30 @@ public class BookController {
     @RequestMapping("/fuzzysearch")
     public String fuzzysearch(Model model, HttpServletRequest request) {
         String bname=request.getParameter("bname");
+        System.out.println(bname);
+
+        String pageNum = request.getParameter("page");
+        String pageSize = request.getParameter("size");
+        int beginnum = 1;
+        int beginsize = 4;
+        if(pageNum != null && !"".equals(pageNum)){
+            beginnum = Integer.parseInt(pageNum);
+        }
+        if(pageSize != null && !"".equals(pageSize)){
+            beginsize  = Integer.parseInt(pageSize);
+        }
+        String sortString = "id.desc";
+        Order.formString(sortString);
+        PageHelper.startPage(beginnum, beginsize);
         List<Book> books=bookService.fuzzysearch(bname);
-        model.addAttribute("books",books);
-        return "booklist";
+        PageInfo<Book> pagehelper = new PageInfo<Book>(books);
+        //System.out.println(books.size());
+        model.addAttribute("bname",bname);
+        model.addAttribute("books",pagehelper.getList());
+        System.out.println(pagehelper.getList());
+        model.addAttribute("total",pagehelper.getTotal());
+        model.addAttribute("pindex",beginnum);
+        return "fuzzysearch";
     }
 
     /**
@@ -84,7 +105,7 @@ public class BookController {
     @RequestMapping("/categorysearch")
     public String categorysearch(Model model, HttpServletRequest request ){
         String bcate=request.getParameter("bcate");
-        System.out.println(bcate);
+        //System.out.println(bcate);
 
         String pageNum = request.getParameter("page");
         String pageSize = request.getParameter("size");
@@ -105,42 +126,11 @@ public class BookController {
         //System.out.println(books.size());
         model.addAttribute("bcate",bcate);
         model.addAttribute("books",pagehelper.getList());
-        System.out.println(pagehelper.getList());
+       // System.out.println(pagehelper.getList());
         model.addAttribute("total",pagehelper.getTotal());
         model.addAttribute("pindex",beginnum);
         return "booklist";
     }
-
-    @RequestMapping("/pagecut")
-    @ResponseBody
-    public int pageCut(HttpServletRequest request ){
-        String bcate=request.getParameter("bcate");
-        System.out.println(bcate);
-        String pageNum = request.getParameter("page");
-
-        String pageSize = request.getParameter("size");
-        int beginnum=1;
-        int beginsize=4;
-        if(pageNum != null && !"".equals(pageNum)){
-            beginnum = Integer.parseInt(pageNum);
-        }
-        if(pageSize != null && !"".equals(pageSize)){
-            beginsize  = Integer.parseInt(pageSize);
-        }
-        String sortString = "id.desc";
-        Order.formString(sortString);
-        PageHelper.startPage(beginnum, beginsize);
-        List<Book> books=bookService.categorysearch(bcate);
-        System.out.println(books);
-        PageInfo<Book> pagehelper = new PageInfo<Book>(books);
-        //System.out.println(books.size());
-       // model.addAttribute("bcate",bcate);
-        //model.addAttribute("books",pagehelper.getList());
-       // System.out.println(pagehelper.getList());
-        //model.addAttribute("total",pagehelper.getTotal());
-        return 1;
-    }
-
 
 
     /**

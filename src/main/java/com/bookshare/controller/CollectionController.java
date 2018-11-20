@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -36,7 +37,8 @@ public class CollectionController {
      * 点击收藏按钮触发的操作
      */
     @RequestMapping("/collection")
-    public String collection(Model model,HttpServletRequest request){
+    @ResponseBody
+    public String collection(HttpServletRequest request){
         CollectionInfo collection=new CollectionInfo();
        String cuid= (String) request.getSession().getAttribute("uid");
        String cbid=request.getParameter("cbid");
@@ -45,12 +47,11 @@ public class CollectionController {
        collection.setCid(UUIDUtils.getUUID());
        int flag=collectionService.collection(collection);
        if(flag==1){
-           model.addAttribute("result","收藏成功");
+           return "收藏成功";
        }else{
-           model.addAttribute("result","收藏失败");
+           return "收藏失败";
        }
-        //依旧返回图书的详细页面，之返回一些显示添加成功的或者失败的返回信息,这里好像只能用ajax
-        return "bookinfo";
+
     }
 
     @RequestMapping("/delectcollection")

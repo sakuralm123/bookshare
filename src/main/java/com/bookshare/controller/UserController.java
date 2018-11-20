@@ -56,7 +56,8 @@ public class UserController {
         }else{
             model.addAttribute("result","注册失败");
         }
-        return "register";
+        //返回到登录页面
+        return "login";
     }
 
     @RequestMapping("/changeUserInfo")

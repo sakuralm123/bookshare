@@ -49,6 +49,7 @@
                             </div>
                         </div>
 
+
                     </form>
                 </div>
             </div>
@@ -86,7 +87,7 @@
                                 <td>
                                     <div class="layui-row">
                                         <div class="layui-col-md-offset2">
-                                            <a href="http://localhost:8080/bookinfo?bid=${book.bid}">
+                                            <a href="http://www.baidu.com">
                                                 <img height="130px" width="100px" src="${book.bpict}">
                                             </a>
                                         </div>
@@ -111,13 +112,10 @@
 
 
 <script>
-    var pcountString= "${pcount}";
-    var psizeString= "${psize}";
-    //var pcountInt= parseInt(pcountString);//总页数
-    //var psizeInt=parseInt(psizeString); //页面大小
-    var pindex = "${pindex}";// 当前页
-    //var ptotalpages=Math.ceil(pcountInt/psizeInt);// 总记录数
+   // var pcountString= "${pcount}";
+    //var psizeString= "${psize}";
 
+    var pindex = "${pindex}";// 当前页
 
     layui.use(['element', 'form', 'laypage'], function () {
         var element = layui.element;
@@ -133,7 +131,7 @@
 
         //执行一个laypage实例
         laypage.render({
-             cont:4
+            cont:4
             ,elem: 'test1' //注意，这里的 test1 是 ID，不用加 # 号
             , count: ${total}//数据总数，从服务端得到
             ,limit:4
@@ -147,16 +145,13 @@
                 //首次不执行
                 if (!first) {
 
-                    window.location.href="http://localhost:8080/categorysearch?page="+obj.curr+"&size="+obj.limit+"&bcate="+"${bcate}";//跳转链接
+                    window.location.href="http://localhost:8080/fuzzysearch?page="+obj.curr+"&size="+obj.limit+"&bname="+"${bname}";//跳转链接
                 }
             }
         });
 
     });
-function showList() {
 
-
-}
 </script>
 </body>
 

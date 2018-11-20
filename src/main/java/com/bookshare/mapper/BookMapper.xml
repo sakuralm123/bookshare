@@ -16,7 +16,7 @@
 
     <!--模糊查询图书-->
     <select id="fuzzysearch" parameterType="String" resultType="Book">
-        SELECT * FROM book WHERE bname LIKE '%${bname}%'
+        SELECT * FROM book WHERE bname LIKE '%${_parameter}%'
     </select>
 
     <!--根据分类查询图书-->
