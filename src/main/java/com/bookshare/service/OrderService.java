@@ -9,4 +9,10 @@ import java.util.List;
 public interface OrderService {
     List<Order> oldOrder(String ouid);
     List<Order> newOrder(String ouid);
+
+    int createOrder(Order order);
+
+    int sureOrder(String oid,String time);
+
+    int comOrder(String oid);
 }

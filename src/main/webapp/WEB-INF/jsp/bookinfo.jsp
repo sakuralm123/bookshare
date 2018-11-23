@@ -5,7 +5,7 @@
   Time: 16:13
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java"  isELIgnored="false" %>
+<%@ page pageEncoding="utf-8" contentType="text/html;charset=UTF-8" language="java"  isELIgnored="false" %>
 <html>
 
 <head>
@@ -26,10 +26,10 @@
         <div class="layui-raw">&nbsp;</div>
         <div class="layui-raw layui-col-space2">
             <div class="layui-col-md2">
-                <a href="index.html"><img src="../resouce/img/LOGO.png"></a>
+                <a href="index.html"><img src="/user/LOGO.png"></a>
             </div>
 
-            <div class="layui-col-md5">
+            <%--<div class="layui-col-md5">
                 <div class="layui-raw">
                     <form class="layui-form" action="">
                         <div class="layui-raw">
@@ -53,17 +53,26 @@
                     </form>
                 </div>
             </div>
-
+--%>
 
         </div>
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">
-                <a href="">发布图书</a>
+                <a href="${pageContext.request.contextPath}/beforlogin"><span id="login"><% String uid= (String) session.getAttribute("uid");
+                    if (uid==null){
+                        out.print("登录");
+                    }%></span></a>
             </li>
+            <!-- <li class="layui-nav-item">
+              <a href="bookupload.html">发布图书</a>
+            </li> -->
             <li class="layui-nav-item">
-                <a href="usercentor.html"><img src="../resouce/img/doge.jpg" class="layui-nav-img">我</a>
+                <a href="${pageContext.request.contextPath}/beforusercentor"><%
+                    if (uid!=null){
+                        out.print("个人中心");
+                    }%></a>
                 <dl class="layui-nav-child">
-                    <dd><a href="javascript:;">修改信息</a></dd>
+                    <%--<dd><a href="userupdate.jsp">修改信息</a></dd>--%>
                     <!-- <dd><a href="javascript:;">安全管理</a></dd> -->
                     <dd><a href="javascript:;">退了</a></dd>
                 </dl>
@@ -75,7 +84,7 @@
 </div>
 <div class="layui-raw">
     <div class="layui-col-md8 layui-col-md-offset2">
-        <div class="layui-raw layui-col-space10" style="padding:20px">
+        <div class="layui-raw layui-col-space10" style="padding:20px;margin: 10px">
             <div class="layui-col-md5">
                 <fieldset class="layui-elem-field">
                     <legend>封面</legend>
@@ -84,13 +93,13 @@
                     </div>
                 </fieldset>
             </div>
-            <div class="layui-col-md7" style="padding:30px ">
+            <div class="layui-col-md7" style="height: 366px; padding:30px;">
                 <form class="layui-form" action="">
                     <div class="layui-form-item">
                         <label class="layui-form-label">书名</label>
 
                         <div class="layui-form-mid layui-word-aux">
-                            <h1>${boook.bname}</h1>
+                            <h1>${book.bname}</h1>
                         </div>
                     </div>
                     <div class="layui-form-item">
@@ -104,14 +113,14 @@
                         <div class="layui-form-mid layui-word-aux">${book.bprice}</div>
                     </div>
 
-                    <!-- <hr> -->
+
                     <hr>
-                    <div class="layui-form-item" style="margin:10px; padding:20px" >
+                    <div class="layui-form-item" style=" padding:30px">
                         <div class="layui-input-inline">
-                            <onclick="collection" class="layui-btn layui-btn-lg">加入收藏</>
+                            <a class="layui-btn layui-btn-lg" id="collect-btn" href="#" >加入收藏</a>
                         </div>
                         <div class="layui-input-inline">
-                            <a href="http://www.layui.com" class="layui-btn layui-btn-lg   layui-btn-danger">购买</a>
+                            <a class="layui-btn layui-btn-lg layui-btn-danger" href="${pageContext.request.contextPath}/createorder?obuid=${book.buid}&obname=${book.bname}&obprice=${book.bprice}&obpict=${book.bpict}">购买</a>
                         </div>
                     </div>
                 </form>
@@ -131,13 +140,17 @@
             </div>
 
         </div>
-        <div class="layui-raw">
-            <fieldset class="layui-elem-field">
-                <legend>图书描述</legend>
-                <div class="layui-field-box">
-                    ${book.bdesc}
-                </div>
-            </fieldset>
+
+        <div class="layui-raw" style="margin:30px">
+            <div class="layui-col-md12">
+                <fieldset class="layui-elem-field">
+                    <legend>图书描述</legend>
+                    <div class="layui-field-box">
+                        ${book.bdesc}
+                    </div>
+                </fieldset>
+            </div>
+
         </div>
 
     </div>
@@ -147,17 +160,62 @@
 
 
 <script>
-    layui.use(['element', 'form'], function () {
+    layui.use(['element', 'form', 'layer'], function () {
         var element = layui.element;
         var form = layui.form;
-
+        var layer = layui.layer;
         //监听提交
         form.on('submit(fuzzysearch)', function (data) {
             layer.msg(JSON.stringify(data.field));
             return false;
         });
 
-    });
+        $ = layui.jquery;
+        $(document).on('click', '#collect-btn', function () {
+            //alert("haha");
+            $.ajax({
+                url: "${pageContext.request.contextPath}/collection?cbid=${book.bid}",
+                success:function (data) {
+                    if(data==1){
+                        layer.msg("恭喜，收藏成功");
+                    }else{
+                        layer.msg("收藏失败");
+                    }
+                },
+                dataType:"text",
+                async:true,
+                type:"get",
+                xhrFields: {
+                    withCredentials: true
+                }
+            })
+
+        });
+        /*$(document).on('click','#purchase-btn', function(){
+            $.ajax({
+                url: "${pageContext.request.contextPath}/createorder?obuid=${book.buid}&obname=${book.bname}&obpice=${book.bprice}$obpict=${book.bpict}",
+                /!*success:function (data) {
+                    if(data==1){
+                        layer.msg("恭喜，收藏成功");
+                    }else{
+                        layer.msg("收藏失败");
+                    }
+                },*!/
+                dataType:"text",
+                async:false,
+                type:"get",
+                xhrFields: {
+                    withCredentials: true
+                }
+            })*/
+
+        });
+
+
+
+
+
+
 
 </script>
 </body>

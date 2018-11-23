@@ -1,12 +1,13 @@
 <%--
   Created by IntelliJ IDEA.
   User: lm
-  Date: 2018/11/9
-  Time: 15:07
+  Date: 2018/11/20
+  Time: 17:42
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page pageEncoding="utf-8" contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<!DOCTYPE  html>
 <html>
 
 <head>
@@ -19,58 +20,23 @@
     <script src="../layui/layui.js"></script>
 </head>
 
-<body class="layui-bg-black">
+<body>
 
-<div class="layui-layout layui-layout-admin">
-    <div class="layui-header">
-        <div class="layui-raw">&nbsp;</div>
-        <div class="layui-raw layui-col-space2">
-            <div class="layui-col-md2">
-                <img src="/user/LOGO.png">
-            </div>
+<div class="layui-layout layui-layout-admin" style="margin:30px">
 
-            <%--<div class="layui-col-md5">
-                <div class="layui-raw">
-                    <form class="layui-form" action="">
-                        <div class="layui-raw">
-                            <div class="layui-col-md9">
-                                <div class="layui-input-block">
-                                    <input type="text" name="title" lay-verify="title" autocomplete="off"
-                                           placeholder="搜索图书" class="layui-input layui-bg-black">
-                                </div>
-                            </div>
-                            <div class="layui-col-md3">
-                                <div class="layui-form-item">
-                                    <div class="layui-input-inline ">
-                                        <button class="layui-btn layui-bg-black" lay-submit="" lay-filter="fuzzysearch"><i
-                                                class="layui-icon layui-icon-search"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </form>
-                </div>
-            </div>--%>
-
-
-        </div>
-
-
-    </div>
 
     <div class="layui-raw">
         <div class="layui-col-md12">
             <fieldset class="layui-elem-field">
-                <legend>搜索结果</legend>
+                <legend>图书收藏</legend>
                 <div class="layui-field-box">
                     <table class="layui-table">
                         <colgroup>
                             <col width="200">
                             <col width="200">
                             <col width="100">
-                            <col width="150">
-                            <col>
+                            <col >
+                            <col width="100">
                         </colgroup>
                         <thead>
                         <tr>
@@ -78,6 +44,7 @@
                             <th>书名</th>
                             <th>类别</th>
                             <th>描述</th>
+                            <th>操作</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -96,9 +63,9 @@
                                 <td>${book.bname}</td>
                                 <td>${book.bcate}</td>
                                 <td>${book.bdesc}</td>
+                                <td><input type="button" value="取消收藏" class="layui-btn layui-btn-lg layui-btn-danger" onclick="delectCollection('${book.bid}')"></td>
                             </tr>
                         </c:forEach>
-
                         </tbody>
                     </table>
                 </div>
@@ -111,13 +78,28 @@
 
 
 <script>
-    var pcountString= "${pcount}";
-    var psizeString= "${psize}";
-    //var pcountInt= parseInt(pcountString);//总页数
-    //var psizeInt=parseInt(psizeString); //页面大小
-    var pindex = "${pindex}";// 当前页
-    //var ptotalpages=Math.ceil(pcountInt/psizeInt);// 总记录数
+    var pindex = "${pindex}";//当前页
+    function delectCollection(data) {
+        $.ajax({
+            url:'${pageContext.request.contextPath}/delectcollection?bid='+data,
+            data:{
 
+            },
+            success: function (data) {
+                if(data==1){
+                    window.location.href="http://localhost:8080/allcollection?page="+pindex+"&size="+4;//跳转链接
+                }else {
+                    alert("删除失败");
+                }
+            }
+        })
+
+    }
+
+    // var pcountString= "${pcount}";
+    //var psizeString= "${psize}";
+
+    // 当前页
 
     layui.use(['element', 'form', 'laypage'], function () {
         var element = layui.element;
@@ -133,7 +115,7 @@
 
         //执行一个laypage实例
         laypage.render({
-             cont:4
+            cont:1
             ,elem: 'test1' //注意，这里的 test1 是 ID，不用加 # 号
             , count: ${total}//数据总数，从服务端得到
             ,limit:4
@@ -147,16 +129,14 @@
                 //首次不执行
                 if (!first) {
 
-                    window.location.href="http://localhost:8080/categorysearch?page="+obj.curr+"&size="+obj.limit+"&bcate="+"${bcate}";//跳转链接
+                    window.location.href="http://localhost:8080/allcollection?page="+obj.curr+"&size="+obj.limit;//跳转链接
                 }
             }
         });
 
     });
-function showList() {
 
 
-}
 </script>
 </body>
 

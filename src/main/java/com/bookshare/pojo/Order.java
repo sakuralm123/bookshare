@@ -17,10 +17,13 @@ public class Order {
      */
     private String oid;
     private String ouid;
-    private String obid;
+    private String obuid;
     private String obprice;
     private String otime;
     private String ostat;
+    private String obpict;
+    private String obname;
+
 
     public String getOid() {
         return oid;
@@ -38,12 +41,12 @@ public class Order {
         this.ouid = ouid;
     }
 
-    public String getObid() {
-        return obid;
+    public String getObuid() {
+        return obuid;
     }
 
-    public void setObid(String obid) {
-        this.obid = obid;
+    public void setObuid(String obuid) {
+        this.obuid = obuid;
     }
 
     public String getObprice() {
@@ -70,15 +73,33 @@ public class Order {
         this.ostat = ostat;
     }
 
+    public String getObpict() {
+        return obpict;
+    }
+
+    public void setObpict(String obpict) {
+        this.obpict = obpict;
+    }
+
+    public String getObname() {
+        return obname;
+    }
+
+    public void setObname(String obname) {
+        this.obname = obname;
+    }
+
     @Override
     public String toString() {
         return "Order{" +
                 "oid='" + oid + '\'' +
                 ", ouid='" + ouid + '\'' +
-                ", obid='" + obid + '\'' +
+                ", obuid='" + obuid + '\'' +
                 ", obprice='" + obprice + '\'' +
                 ", otime='" + otime + '\'' +
                 ", ostat='" + ostat + '\'' +
+                ", obpict='" + obpict + '\'' +
+                ", obname='" + obname + '\'' +
                 '}';
     }
 }

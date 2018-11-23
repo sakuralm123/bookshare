@@ -12,7 +12,7 @@
     <select id="allBooks" resultType="Book">
         SELECT * FROM book
         WHERE  bid IN
-        <foreach collection="bids" item="bid" index="index"
+        <foreach collection="bids" item="bid"
                  open="(" close=")" separator=",">
             #{bid}
         </foreach>
@@ -26,8 +26,8 @@
     </insert>
 
     <!--移除收藏-->
-    <delete id="delectCollection" parameterType="String">
-        delect from collection WHERE cid=#{cid}
+    <delete id="delectCollection">
+        DELETE from collection WHERE cbid=#{cbid} AND cuid=#{cuid}
     </delete>
 
 </mapper>

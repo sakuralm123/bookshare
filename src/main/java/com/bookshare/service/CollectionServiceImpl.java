@@ -19,6 +19,7 @@ public class CollectionServiceImpl implements CollectionService{
 
     @Override
     public List<Book> allBooks(List<String> bids) {
+        System.out.println(bids);
         return collectionMapper.allBooks(bids);
     }
 
@@ -31,7 +32,9 @@ public class CollectionServiceImpl implements CollectionService{
     }
 
     @Override
-    public int delectCollection(String cid) {
-        return collectionMapper.delectCollection(cid);
+    public int delectCollection(String cbid,String cuid) {
+        System.out.println(cbid);
+        System.out.println(cuid);
+        return collectionMapper.delectCollection(cbid,cuid);
     }
 }

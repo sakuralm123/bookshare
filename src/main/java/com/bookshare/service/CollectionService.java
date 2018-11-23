@@ -11,5 +11,5 @@ public interface CollectionService {
     List<String> allbids(String buid);
     List<Book> allBooks(List<String> bids);
     int collection(CollectionInfo collection);
-    int delectCollection(String cid);
+    int delectCollection(String bid,String uid);
 }

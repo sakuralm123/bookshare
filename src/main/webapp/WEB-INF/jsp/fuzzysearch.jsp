@@ -5,7 +5,7 @@
   Time: 15:07
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
+<%@ page  pageEncoding="utf-8" contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
 
@@ -26,7 +26,7 @@
         <div class="layui-raw">&nbsp;</div>
         <div class="layui-raw layui-col-space2">
             <div class="layui-col-md2">
-                <img src="../resouce/img/LOGO.png">
+                <img src="/user/LOGO.png">
             </div>
 
             <div class="layui-col-md5">

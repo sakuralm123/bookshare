@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="war" name="bookshare:war2">
-    <output-path>$PROJECT_DIR$/out/artifacts/bookshare_war2</output-path>
+    <output-path>C:/app</output-path>
     <root id="archive" name="bookshare_war.war">
       <element id="artifact" artifact-name="bookshare:war exploded" />
     </root>

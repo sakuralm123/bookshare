@@ -5,10 +5,34 @@
 <mapper namespace="com.bookshare.mapper.OrderMapper">
     <!--历史订单-->
     <select id="oldOrder" parameterType="String" resultType="Order">
-        SELECT * FROM orders WHERE ouid=#{ouid} AND ostate='1'
+        SELECT * FROM orders WHERE ouid=#{ouid} AND ostat='1'
     </select>
     <!--正在进行的订单-->
     <select id="newOrder" parameterType="String" resultType="Order">
-        SELECT * FROM orders WHERE ouid=#{ouid} AND ostate='0'
+        SELECT * FROM orders WHERE ouid=#{ouid} AND ostat='0'
     </select>
+
+    <!--创造订单-->
+    <insert id="createOrder" parameterType="Order">
+        INSERT INTO orders(oid,ouid,obuid,obprice,otime,ostat,obpict,obname)
+        VALUES (#{oid},#{ouid},#{obuid},#{obprice},#{otime},#{ostat},#{obpict},#{obname})
+    </insert>
+
+    <!--确认订单-->
+    <update id="sureOrder" parameterType="String">
+        UPDATE orders SET ostat='0',otime=#{otime} WHERE oid=#{oid}
+    </update>
+
+    <!--完成订单-->
+    <update id="comOrder" parameterType="String">
+        UPDATE orders SET ostat='1',otime=#{otime} WHERE oid=#{oid}
+    </update>
 </mapper>
+
+<!--private String oid;
+    private String ouid;
+    private String obid;
+    private String obprice;
+    private String otime;
+    private String ostat;
+    private String obpict;-->

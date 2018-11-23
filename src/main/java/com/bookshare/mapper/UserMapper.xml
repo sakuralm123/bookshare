@@ -8,19 +8,24 @@
     </select>
 
     <select id="userInfo" parameterType="String" resultType="User">
-        SELECT * FROM user WHERE uid=#{uid}
+        SELECT * FROM `user` WHERE uid=#{uid}
     </select>
 
     <!--注册-->
     <insert id="register" parameterType="User">
-        insert into user (uid,ucoon,uname,uage,usex,uvavat,upass) values (
-        #{uid},#{ucoon},#{uname},#{uage},#{usex},#{uvavat},#{upass}
+        insert into `user` (uid,uconn,uname,uage,usex,uvavat,upass) values (
+        #{uid},#{uconn},#{uname},#{uage},#{usex},#{uvavat},#{upass}
         );
     </insert>
 
     <!--修改用户信息-->
     <update id="changeUserInfo" parameterType="User">
-        UPDATE user SET uconn=#{uconn},uname=#{uname},uage=#{uage},
+        UPDATE `user` SET uconn=#{uconn},uname=#{uname},uage=#{uage},
         usex=#{usex} WHERE uid=#{uid}
     </update>
+
+    <!--查询是否有该用户名-->
+    <select id="users" parameterType="String" resultType="int">
+        SELECT COUNT(*) FROM `user` WHERE uname=#{uname}
+    </select>
 </mapper>

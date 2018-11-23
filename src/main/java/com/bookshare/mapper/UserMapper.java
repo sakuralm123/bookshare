@@ -13,4 +13,5 @@ public interface UserMapper {
     //修改信息
     int changeUserInfo(User user);
 
+    int users(String uname);
 }

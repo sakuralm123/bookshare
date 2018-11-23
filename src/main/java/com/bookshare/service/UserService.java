@@ -9,4 +9,6 @@ public interface UserService {
     User userInfo(String uid);
     int register(User user);
     int changeUserInfo(User user);
+
+    int users(String uname);
 }
