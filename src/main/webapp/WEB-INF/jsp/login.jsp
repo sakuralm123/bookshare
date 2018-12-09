@@ -85,7 +85,7 @@
 
                             <div class="layui-form-item">
                                 <div class="layui-input-block">
-                                    <input type="submit" class="layui-btn layui-btn-lg" lay-submit lay-filter="login">登录</input>
+                                    <input type="submit" class="layui-btn layui-btn-lg" lay-submit lay-filter="login" value="登录"/>
                                     <a href="${pageContext.request.contextPath}/beforregister" class="layui-btn layui-btn-lg layui-btn-primary">注册</a>
                                 </div>
                             </div>

@@ -35,7 +35,7 @@
                         <div class="layui-raw">
                             <div class="layui-col-md9">
                                 <div class="layui-input-block">
-                                    <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="搜索图书" class="layui-input layui-bg-black">
+                                    <input type="text" name="bname" lay-verify="title" autocomplete="off" placeholder="搜索图书" class="layui-input layui-bg-black">
                                 </div>
                             </div>
                             <div class="layui-col-md3">

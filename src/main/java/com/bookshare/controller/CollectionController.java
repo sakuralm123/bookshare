@@ -56,12 +56,18 @@ public class CollectionController {
         String sortString = "id.desc";
         Order.formString(sortString);
         PageHelper.startPage(beginnum, beginsize);
-        List<Book> books = collectionService.allBooks(bids);
+        List<Book> books=null;
+        if(bids.size()==0){
+
+        }
+        else{
+            books = collectionService.allBooks(bids);
+        }
+
         PageInfo<Book> pagehelper = new PageInfo<Book>(books);
         model.addAttribute("books", pagehelper.getList());
-        System.out.println(pagehelper.getList());
         model.addAttribute("total", pagehelper.getTotal());
-        System.out.println(pagehelper.getTotal());
+        //System.out.println(pagehelper.getTotal());
         model.addAttribute("pindex", beginnum);
         return "bookcollection";
     }
@@ -75,16 +81,13 @@ public class CollectionController {
         response.setHeader("Access-Control-Allow-Origin", "*");
         CollectionInfo collection = new CollectionInfo();
         String cbid = request.getParameter("cbid");
-        System.out.println(cbid);
         //String uid = (String) request.getSession().getAttribute("uid");
         String cuid = (String) session.getAttribute("uid");
-        System.out.println(cuid);
 
         collection.setCbid(cbid);
         collection.setCuid(cuid);
         collection.setCid(UUIDUtils.getUUID());
         int flag = collectionService.collection(collection);
-        System.out.println(flag);
         return flag;
         // return "aa";
     }
